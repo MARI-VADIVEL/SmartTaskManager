@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "targets": [
+      "todo"
+    ],
+    "ignore": [
+      ".output"
+    ],
+    "source": "functions"
+  }
+}

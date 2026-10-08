@@ -1,0 +1,40 @@
+# Node
+node_modules/
+frontend/node_modules/
+
+# Frontend build
+frontend/dist/
+frontend/.vite/
+
+# Catalyst build
+.build/
+
+# Logs
+*.log
+catalyst-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java build files
+*.class
+target/
+bin/
+out/
+
+# Temporary files
+*.tmp
+*.temp
