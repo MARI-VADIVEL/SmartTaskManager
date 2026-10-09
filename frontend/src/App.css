@@ -508,3 +508,15 @@ header p{
     width:100%;
   }
 }
+
+.dueDateBadge{
+  color:#93c5fd!important;
+  background:rgba(59,130,246,.10)!important;
+  border-color:rgba(59,130,246,.20)!important;
+}
+
+.overdueBadge{
+  color:#fca5a5!important;
+  background:rgba(239,68,68,.12)!important;
+  border-color:rgba(239,68,68,.25)!important;
+}
