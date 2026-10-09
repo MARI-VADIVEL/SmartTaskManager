@@ -1,3 +1,4 @@
+
 import {useState} from "react";
 import "./App.css";
 
@@ -12,12 +13,12 @@ import useTasks from "./hooks/useTasks";
 
 import {
   filterTasks,
+  sortTasks,
   getTaskStats
 } from "./utils/taskUtils";
 
 function App(){
-
-  const {
+  const{
     tasks,
     loading,
     addTask,
@@ -26,7 +27,7 @@ function App(){
     deleteTask
   }=useTasks();
 
-  const {
+  const{
     form,
     setForm,
     editingId,
@@ -34,8 +35,9 @@ function App(){
     startEdit
   }=useTaskForm();
 
-  const [search,setSearch]=useState("");
-  const [filter,setFilter]=useState("all");
+  const[search,setSearch]=useState("");
+  const[filter,setFilter]=useState("all");
+  const[sortBy,setSortBy]=useState("newest");
 
   const handleSubmit=async e=>{
     e.preventDefault();
@@ -45,9 +47,7 @@ function App(){
     }
 
     try{
-
       if(editingId){
-
         const currentTask=tasks.find(
           task=>String(task.ROWID)===String(editingId)
         );
@@ -63,9 +63,7 @@ function App(){
           userId:currentTask?.userId||"local-user",
           taskOrder:currentTask?.taskOrder||"1"
         });
-
       }else{
-
         await addTask({
           title:form.title.trim(),
           description:form.description.trim(),
@@ -73,11 +71,9 @@ function App(){
           category:form.category,
           dueDate:form.dueDate||""
         });
-
       }
 
       resetForm();
-
     }catch(error){
       console.error(error);
     }
@@ -88,7 +84,6 @@ function App(){
   };
 
   const handleDelete=async rowId=>{
-
     const confirmed=window.confirm(
       "Are you sure you want to delete this task?"
     );
@@ -98,13 +93,11 @@ function App(){
     }
 
     try{
-
       await deleteTask(rowId);
 
       if(String(editingId)===String(rowId)){
         resetForm();
       }
-
     }catch(error){
       console.error(error);
     }
@@ -113,12 +106,10 @@ function App(){
   const handleAddClick=()=>{
     resetForm();
 
-    document
-      .querySelector(".taskForm")
-      ?.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
+    document.querySelector(".taskForm")?.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
   };
 
   const filteredTasks=filterTasks(
@@ -127,19 +118,22 @@ function App(){
     filter
   );
 
+  const sortedTasks=sortTasks(
+    filteredTasks,
+    sortBy
+  );
+
   const stats=getTaskStats(tasks);
 
   return(
     <div className="app">
-
-      <Header
-        onAdd={handleAddClick}
-      />
+      <Header onAdd={handleAddClick}/>
 
       <Stats
         total={stats.total}
         active={stats.active}
         completed={stats.completed}
+        overdue={stats.overdue}
       />
 
       <TaskForm
@@ -155,16 +149,17 @@ function App(){
         setSearch={setSearch}
         filter={filter}
         setFilter={setFilter}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
 
       <TaskList
-        tasks={filteredTasks}
+        tasks={sortedTasks}
         loading={loading}
         onToggle={toggleTask}
         onEdit={startEdit}
         onDelete={handleDelete}
       />
-
     </div>
   );
 }

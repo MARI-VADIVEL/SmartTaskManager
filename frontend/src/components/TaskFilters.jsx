@@ -1,51 +1,56 @@
+
 function TaskFilters({
   search,
   setSearch,
   filter,
-  setFilter
+  setFilter,
+  sortBy,
+  setSortBy
 }){
+  const filters=[
+    {value:"all",label:"All"},
+    {value:"active",label:"Active"},
+    {value:"completed",label:"Completed"},
+    {value:"today",label:"Today"},
+    {value:"upcoming",label:"Upcoming"},
+    {value:"overdue",label:"Overdue"},
+    {value:"high",label:"High Priority"}
+  ];
+
   return(
-    <div className="controls">
+    <div className="filterSection">
+      <div className="controls">
+        <input
+          type="search"
+          placeholder="Search title, description, category..."
+          value={search}
+          onChange={e=>setSearch(e.target.value)}
+        />
 
-      <input
-        type="text"
-        placeholder="Search tasks..."
-        value={search}
-        onChange={e=>setSearch(e.target.value)}
-      />
-
-      <div className="filters">
-
-        <button
-          className={filter==="all"?"activeFilter":""}
-          onClick={()=>setFilter("all")}
+        <select
+          className="sortSelect"
+          value={sortBy}
+          onChange={e=>setSortBy(e.target.value)}
+          aria-label="Sort tasks"
         >
-          All
-        </button>
-
-        <button
-          className={filter==="active"?"activeFilter":""}
-          onClick={()=>setFilter("active")}
-        >
-          Active
-        </button>
-
-        <button
-          className={filter==="completed"?"activeFilter":""}
-          onClick={()=>setFilter("completed")}
-        >
-          Completed
-        </button>
-
-        <button
-          className={filter==="high"?"activeFilter":""}
-          onClick={()=>setFilter("high")}
-        >
-          High
-        </button>
-
+          <option value="newest">Newest first</option>
+          <option value="dueDate">Due date</option>
+          <option value="priority">Priority: High to Low</option>
+        </select>
       </div>
 
+      <div className="filters">
+        {filters.map(item=>(
+          <button
+            type="button"
+            key={item.value}
+            className={filter===item.value?"activeFilter":""}
+            onClick={()=>setFilter(item.value)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

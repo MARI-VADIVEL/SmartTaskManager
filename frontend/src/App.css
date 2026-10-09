@@ -520,3 +520,52 @@ header p{
   background:rgba(239,68,68,.12)!important;
   border-color:rgba(239,68,68,.25)!important;
 }
+
+.filterSection{
+  margin-bottom:20px;
+}
+
+.filterSection .controls{
+  margin-bottom:12px;
+}
+
+.sortSelect{
+  width:230px;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.09);
+  outline:none;
+  border-radius:10px;
+  padding:12px 13px;
+  color:#e5e7eb;
+  background:#0c1422;
+  cursor:pointer;
+}
+
+.sortSelect:focus{
+  border-color:rgba(96,165,250,.65);
+}
+
+.overdueStat strong{
+  color:#f87171;
+}
+
+@media(max-width:900px){
+  .filterSection .controls{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .sortSelect{
+    width:100%;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:420px){
+  .stats{
+    grid-template-columns:1fr;
+  }
+}

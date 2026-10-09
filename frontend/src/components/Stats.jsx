@@ -1,11 +1,12 @@
+
 function Stats({
   total,
   active,
-  completed
+  completed,
+  overdue
 }){
   return(
     <section className="stats">
-
       <div className="statCard">
         <span>Total Tasks</span>
         <strong>{total}</strong>
@@ -21,6 +22,10 @@ function Stats({
         <strong>{completed}</strong>
       </div>
 
+      <div className="statCard overdueStat">
+        <span>Overdue</span>
+        <strong>{overdue}</strong>
+      </div>
     </section>
   );
 }
